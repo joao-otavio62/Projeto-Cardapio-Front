@@ -117,7 +117,7 @@ function ProductModal({ product, categories, promotions, onClose, onChanged }:
   }
 
   return (
-    <Modal open onOpenChange={(o) => !o && onClose()} title={current ? 'Editar produto' : 'Novo produto'} wide>
+    <Modal open onOpenChange={(o) => !o && onClose()} title={current ? 'Editar produto' : 'Novo produto'} wide scrollable>
       <form onSubmit={save} className="space-y-3">
         <Field label="Nome"><input className={inputCls} value={f.name} onChange={(e) => setF({ ...f, name: e.target.value })} maxLength={140} required /></Field>
         <Field label="Descrição"><textarea className={inputCls} rows={2} value={f.description} onChange={(e) => setF({ ...f, description: e.target.value })} maxLength={2000} /></Field>

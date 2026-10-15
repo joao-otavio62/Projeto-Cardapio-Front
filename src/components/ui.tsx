@@ -49,19 +49,21 @@ export const Badge = ({ className = '', children }: { className?: string; childr
 )
 
 /** Modal acessível (Radix Dialog): bottom-sheet no celular, centralizado no desktop. */
-export function Modal({ open, onOpenChange, title, children, wide }:
-  { open: boolean; onOpenChange: (o: boolean) => void; title: string; children: ReactNode; wide?: boolean }) {
+export function Modal({ open, onOpenChange, title, children, wide, scrollable }:
+  { open: boolean; onOpenChange: (o: boolean) => void; title: string; children: ReactNode; wide?: boolean; scrollable?: boolean }) {
   return (
     <Dialog.Root open={open} onOpenChange={onOpenChange}>
       <Dialog.Portal>
         <Dialog.Overlay className="fixed inset-0 z-40 bg-black/50" />
         <Dialog.Content aria-describedby={undefined}
-          className={`fixed bottom-0 left-0 right-0 z-50 max-h-[92vh] overflow-y-auto rounded-t-2xl bg-white p-5 shadow-xl sm:bottom-auto sm:left-1/2 sm:right-auto sm:top-1/2 sm:w-full sm:-translate-x-1/2 sm:-translate-y-1/2 sm:rounded-2xl ${wide ? 'sm:max-w-2xl' : 'sm:max-w-md'}`}>
-          <div className="mb-4 flex items-center justify-between gap-2">
+          className={`fixed bottom-0 left-0 right-0 z-50 flex ${scrollable ? 'h-[92vh] h-[92dvh] w-full min-w-0' : 'max-h-[92vh] max-h-[92dvh]'} flex-col overflow-hidden rounded-t-2xl bg-white p-5 shadow-xl sm:bottom-auto sm:left-1/2 sm:right-auto sm:top-1/2 sm:w-full sm:-translate-x-1/2 sm:-translate-y-1/2 sm:rounded-2xl ${wide ? 'sm:max-w-2xl' : 'sm:max-w-md'}`}>
+          <div className="mb-4 flex shrink-0 items-center justify-between gap-2">
             <Dialog.Title className="text-lg font-bold">{title}</Dialog.Title>
             <Dialog.Close className="rounded-full p-2 hover:bg-zinc-100" aria-label="Fechar"><X className="h-5 w-5" /></Dialog.Close>
           </div>
-          {children}
+          <div className="min-h-0 min-w-0 flex-1 overflow-x-hidden overflow-y-auto overscroll-y-contain">
+            {children}
+          </div>
         </Dialog.Content>
       </Dialog.Portal>
     </Dialog.Root>
