@@ -68,6 +68,7 @@ async function req<R>(path: string, init: Init = {}): Promise<R> {
     if (res.status === 401 && init.auth) {
       tokenStore.clear();
       window.dispatchEvent(new Event("pf:unauthorized"));
+      window.location.reload();
     }
     const fields = data?.errors as Record<string, string[]> | undefined;
     const first = fields
